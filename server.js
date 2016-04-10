@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 const http = require("http").createServer(app);
-// const io = require("socket.io")(http);
+const io = require("socket.io")(http);
 const path = require("path");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -14,7 +14,7 @@ var handlebars = require('express-handlebars');
 var passport = require('passport');
 var TwitterStrategy = require('passport-twitter').Strategy;
 
-var router = { 
+var router = {
 	index: require("./routes/index"),
 	chat: require("./routes/chat")
 };
@@ -133,11 +133,30 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-// io.use(function(socket, next) {
-//     session_middleware(socket.request, {}, next);
-// });
+app.get('/chat', router.chat.view);
+
+ io.use(function(socket, next) {
+     session_middleware(socket.request, {}, next);
+ });
 
 /* TODO: Server-side Socket.io here */
+io.on("connection", function(socket) {
+	socket.on("newsfeed", function(msg) {
+		console.log('message: ' + msg);
+		//console.log(socket.request.session.passport.user);
+		var newNewsFeed = new models.NewsFeed({
+			"user": JSON.stringify(socket.request.session.passport.user.screen_name),
+			"message": JSON.stringify(msg),
+			"posted": new Date()
+		});
+console.log(socket.request.session.passport.user.screen_name);
+		console.log('newsfeed: ' + newNewsFeed);
+		io.emit('newsfeed', msg);
+		newNewsFeed.save();
+	});
+});
+
+
 
 // Start Server
 http.listen(app.get("port"), function() {
