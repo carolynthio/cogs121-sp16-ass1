@@ -11,6 +11,8 @@ require("dotenv").load();
 var models = require("./models");
 var mongoose = require('mongoose');
 var handlebars = require('express-handlebars');
+var passport = require('passport');
+var TwitterStrategy = require('passport-twitter').Strategy;
 
 var router = { 
 	index: require("./routes/index"),
@@ -55,15 +57,81 @@ app.use(parser.body.json());
 app.use(require('method-override')());
 app.use(session_middleware);
 /* TODO: Passport Middleware Here*/
+app.use(passport.initialize());
+app.use(passport.session());
 
 /* TODO: Use Twitter Strategy for Passport here */
+// Old version: passport.use(new strategy.Twitter({
+passport.use(new TwitterStrategy({
+    consumerKey: process.env.TWITTER_CONSUMER_KEY,
+    consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+    callbackURL: "/auth/twitter/callback"
+}, function(token, token_secret, profile, done) {
+    // What goes here? Refer to step 4.
+    models.User.findOne({ "twitterID": profile.id }, function(err, user) {
+    // (1) Check if there is an error. If so, return done(err);
+    if(err) {
+        return done(err);
+    }
+    if(!user) {
+        // (2) since the user is not found, create new user.
+        // Refer to Assignment 0 to how create a new instance of a model
+        var newUser = new models.User({
+            "twitterID": profile.id,
+            "token": token,
+            "username": profile.newUsername,
+            "displayName": profile.displayName,
+            "photo": profile.photo
+        });
+        newUser.save();
+        return done(null, profile);
+    } else {
+        // (3) since the user is found, update user’s information
+        process.nextTick(function() {
+            user.twitterID = profile.id;
+            user.token = token;
+            user.username = profile.username;
+            user.displayName = profile.displayName;
+            user.photo = profile.photos[0];
+            user.save();
+            return done(null, profile);
+        });
+    }
+  });
+}));
 
 /* TODO: Passport serialization here */
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
+
 
 // Routes
 /* TODO: Routes for OAuth using Passport */
 app.get("/", router.index.view);
+// Redirect the user to Twitter for authentication. When complete, Twitter will
+// redirect the user back to the application at
+// /auth/twitter/callback
+app.get("/auth/twitter",passport.authenticate('twitter'));
+
+// Twitter will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+app.get('/auth/twitter/callback',
+  passport.authenticate('twitter', { successRedirect: '/chat',
+                                     failureRedirect: '/' }));
+
 // More routes here if needed
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 // io.use(function(socket, next) {
 //     session_middleware(socket.request, {}, next);
