@@ -17,9 +17,8 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var router = {
 	index: require("./routes/index"),
 	chat: require("./routes/chat"),
-	messages: require("./routes/messages"),
 	profile: require("./routes/profile"),
-             study: require("./routes/study")
+  study: require("./routes/study")
 };
 
 var parser = {
@@ -138,7 +137,6 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/chat', router.chat.view);
-app.get('/messages', router.messages.view);
 app.get('/profile', router.profile.view);
 app.get('/study', router.study.view);
 
