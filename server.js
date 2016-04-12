@@ -145,13 +145,16 @@ io.on("connection", function(socket) {
 		console.log('message: ' + msg);
 		//console.log(socket.request.session.passport.user);
 		var newNewsFeed = new models.NewsFeed({
-			"user": JSON.stringify(socket.request.session.passport.user.screen_name),
+			"user": socket.request.session.passport.user,
 			"message": JSON.stringify(msg),
 			"posted": new Date()
 		});
-console.log(socket.request.session.passport.user.screen_name);
-		console.log('newsfeed: ' + newNewsFeed);
-		io.emit('newsfeed', msg);
+
+		io.emit('newsfeed', {
+			"user": socket.request.session.passport.user,
+			"message": JSON.stringify(msg),
+			"posted": new Date()
+		});
 		newNewsFeed.save();
 	});
 });

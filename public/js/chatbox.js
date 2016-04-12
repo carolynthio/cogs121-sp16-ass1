@@ -11,13 +11,12 @@
     socket.on('newsfeed', function(data) {
     var parsedData;
     // grab and parse data and assign it to the parsedData variable.
-    console.log($('.username'));
     parsedData = {
       'user': {
-        'photo': $('#userImage').val(),
-        'username': $('.username')
+        'photo': data.user.photos[0].value,
+        'username': data.user.username
       },
-      'message': JSON.stringify(data),
+      'message': data.message,
       'posted': new Date()
     };
 
