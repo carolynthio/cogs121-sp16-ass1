@@ -1,3 +1,13 @@
+var models = require("../models");
+
 exports.view = function(req, res) {
-    res.render('profile',{});
+  models.User.find().exec(renderUser);
+  
+  function renderUser(err, user) {
+    if (err) 
+    	console.log(err);
+
+    res.render('profile', user);
+  }
+
 };

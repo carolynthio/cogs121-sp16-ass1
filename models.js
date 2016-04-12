@@ -14,5 +14,6 @@ var NewsFeedSchema = new mongoose.Schema({
     "posted": Date
 })
 
+
 exports.User = mongoose.model('User', UserSchema);
 exports.NewsFeed = mongoose.model('NewsFeed', NewsFeedSchema);
