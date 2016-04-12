@@ -16,7 +16,9 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 
 var router = {
 	index: require("./routes/index"),
-	chat: require("./routes/chat")
+	chat: require("./routes/chat"),
+	messages: require("./routes/messages"),
+	profile: require("./routes/profile")
 };
 
 var parser = {
@@ -113,6 +115,7 @@ passport.deserializeUser(function(user, done) {
 // Routes
 /* TODO: Routes for OAuth using Passport */
 app.get("/", router.index.view);
+
 // Redirect the user to Twitter for authentication. When complete, Twitter will
 // redirect the user back to the application at
 // /auth/twitter/callback
@@ -123,7 +126,7 @@ app.get("/auth/twitter",passport.authenticate('twitter'));
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
 app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { successRedirect: '/chat',
+  passport.authenticate('twitter', { successRedirect: '/profile',
                                      failureRedirect: '/' }));
 
 // More routes here if needed
@@ -134,6 +137,8 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/chat', router.chat.view);
+app.get('/messages', router.messages.view);
+app.get('/profile', router.profile.view);
 
  io.use(function(socket, next) {
      session_middleware(socket.request, {}, next);
