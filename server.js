@@ -19,7 +19,11 @@ var router = {
 	chat: require("./routes/chat"),
 	messages: require("./routes/messages"),
 	profile: require("./routes/profile"),
+<<<<<<< HEAD
     whenisgood: require("./routes/whenisgood")
+=======
+             study: require("./routes/study")
+>>>>>>> 7f70b4074b85b9f1c520cfd674ef2b652c61af39
 };
 
 var parser = {
@@ -140,7 +144,11 @@ app.get('/logout', function(req, res){
 app.get('/chat', router.chat.view);
 app.get('/messages', router.messages.view);
 app.get('/profile', router.profile.view);
+<<<<<<< HEAD
 app.get('/whenisgood', router.whenisgood.view);
+=======
+app.get('/study', router.study.view);
+>>>>>>> 7f70b4074b85b9f1c520cfd674ef2b652c61af39
 
  io.use(function(socket, next) {
      session_middleware(socket.request, {}, next);
