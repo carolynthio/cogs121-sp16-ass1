@@ -43,8 +43,8 @@ h3, h4 {
   text-align: center;
 }
 
-.hours {
-  margin: 0 !important;
+.hours p {
+  margin: 0px 0px 0px 0px !important;
 }
 
 /**************************
