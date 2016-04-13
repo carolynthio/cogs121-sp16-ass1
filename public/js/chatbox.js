@@ -42,7 +42,7 @@
           '</div>' +
           '</div>' +
           '<div class="message-content">' +
-          parsedData.message +
+          JSON.parse(parsedData.message) +
           '</div>';
       return result;
     }
