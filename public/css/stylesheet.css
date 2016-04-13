@@ -25,7 +25,7 @@
     color: #bfbfbf;
 }
 
-.loginButton {
+.loginButton, .helpButton {
     font-family: 'Arial';
 }
 
@@ -68,7 +68,7 @@ h3, h4 {
           user-select: none;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 0px;
   padding: 10px 16px;
 }
 
@@ -124,7 +124,51 @@ h3, h4 {
 	box-shadow: none;
 }
 
+.chatTitle{
+    line-height: 30px;
+    font-size: 36px;
+    font-family: 'Arvo';
+    color: #38a8e0;
+    text-align: center;
+}
 
+h3, h4{
+    font-size: 24px;
+    font-family: 'Arvo';
+    text-align: center;
+}
+
+
+.chatDescription{
+    font-size: 16px;
+    font-family: 'Arvo';
+    text-align: center;
+}
+
+.chatDescription p{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.chatRoom {
+    font-family: 'Arial';
+}
+
+.navbar {
+    font-family: 'Arvo';
+}
+
+.helpDesc {
+    font-size: 15px;
+}
+
+.navbar-default{
+    background-color: black;
+}
+
+#study {
+    font-family: 'Arvo';
+}
 
 @media all and (min-width: 960px) {
     body{

@@ -1,38 +1,61 @@
+<link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <ul class="nav nav-pills">
+      <li role="presentation" class="active"><a href="/chat">Messages</a></li>
+      <li role="presentation"><a href="/study">Study Locations</a></li>
+  </ul>
+  <ul class="nav nav-pills pull-right">
+      <li role="presentation"><a href="/logout">Logout</a></li>
+
+  </ul>
+</nav>
 
 <header>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-  	<ul class="nav nav-pills">
-  		<li role="presentation" class="active"><a href="/chat">Messages</a></li>
-        <li role="presentation"><a href="/study">Study Locations</a></li>
-  	</ul>
-    </div>
-  </nav>
-    <a class="logout" href="/logout">
-        <div class="logout-button">
-            Logout
-        </div>
-    </a>
-    <br>
     <div class="search">
-        <svg class="search-icon" style="width:24px;height:24px" viewBox="0 0 24 24">
-            <path fill="#4fa6de" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-        </svg>
-        <input class="filtered-search" placeholder="Search username or messages" autocomplete="off" />
-    </div>
+            <svg class="search-icon" style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#4fa6de" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+            </svg>
+            <input class="filtered-search" placeholder="Search username or messages" autocomplete="off" />
+        </div>
 </header>
-<section>
+
+<section class="chat">
+
     <div id="description">
-      <p><b> Welcome to STUDY BUDDY! </b></p>
-      <p>  This is the messaging forum where you can communicate with other students.
-        Here's how you could structure your message: </p>
-      <p>"Study Location: Geisel, Time available: 12pm-3pm on Tuesdays and Thursdays, Course: COGS 121"</p>
+        <div class="chatTitle">
+            WELCOME TO STUDY BUDDY!
+        </div> <!-- chatTitle -->
+        <div class="chatDescription">
+            <br>This is the messaging forum where you can communicate with other students.<br><br>
 
+            <center><div class="helpButton"><a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">HELP <i class="fa fa-info-circle" aria-hidden="true"></i></a></div></center>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+             <h3 id="myModalLabel">HELP</h3>
+            </div>
+            <div class="modal-body">
+                <p>FINDING A STUDY BUDDY:<br><div class="helpDesc">Utilize the search bar and find students’ posts that have similar criteria, such as courses or preferred study locations, etc.</div></p>
+                <p><br>SUGGESTED STUDY LOCATIONS: <br><div class="helpDesc">Visit the ‘Study Locations’ tab for photos and descriptions of UCSD study spots open to students</div></p>
+                <p><br>CONTACTING OTHERS:<br><div class="helpDesc"> Communicate with other students using your Twitter accounts</div></p>
+             </div>
+            <div class="modal-footer"><center>
+             <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Close</button><center>
+            </div>
+            </p>
+            </div>
+
+            <hr>
+            Here's how you should format your message: <br>
+            <p>"Study Location: Geisel, Time available: 12pm-3pm on Tuesdays and Thursdays, Course: COGS 121"</><br><br>
+        </div> <!--chatDescription -->
     </div>
-
+    <div class="chatRoom">
     <div id="inner">
         <form id="send_message" action="">
-            <input id="user_input" placeholder="Type a new message and hit enter!" autocomplete="off" />
+            <input id="user_input" placeholder="Type your message and hit enter!" autocomplete="off" />
         </form>
         <ul id="messages">
             {{#each newsfeed}}
@@ -55,6 +78,7 @@
             {{/each}}
         </ul>
     </div>
+</div> <!-- chatRoom -->
 </section>
 <footer>
     &copy; 2016. COGS 121 Spring 2016
