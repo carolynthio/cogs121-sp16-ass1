@@ -5,7 +5,7 @@ var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 var path = require("path");
 var session = require("express-session");
-var MongoStore = require("connect-mongo")(session);
+var MongoStore = require("connect-mongo/es5")(session);
 
 require("dotenv").load();
 var models = require("./models");
