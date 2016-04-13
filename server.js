@@ -17,7 +17,6 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var router = {
 	index: require("./routes/index"),
 	chat: require("./routes/chat"),
-	profile: require("./routes/profile"),
   study: require("./routes/study")
 };
 
@@ -126,7 +125,7 @@ app.get("/auth/twitter",passport.authenticate('twitter'));
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
 app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { successRedirect: '/profile',
+  passport.authenticate('twitter', { successRedirect: '/chat',
                                      failureRedirect: '/' }));
 
 // More routes here if needed
@@ -137,7 +136,6 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/chat', router.chat.view);
-app.get('/profile', router.profile.view);
 app.get('/study', router.study.view);
 
  io.use(function(socket, next) {

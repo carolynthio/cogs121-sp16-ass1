@@ -20,9 +20,15 @@
       'posted': new Date()
     };
 
+    // if users are trying to send a blank message an error appears
+    if (parsedData.message.length <=2) {
+      window.alert("Please enter a message!");
+    }
 
     // other possible solution(s) here.
-    $('#messages').prepend($('<li>').html(messageTemplate(parsedData)));
+    else {
+      $('#messages').prepend($('<li>').html(messageTemplate(parsedData)));
+    }
 
     function messageTemplate(parsedData) {
       // generate HTML text based on some data to be prepended into the list
@@ -36,7 +42,7 @@
           '</div>' +
           '</div>' +
           '<div class="message-content">' +
-          parsedData.message +
+          JSON.parse(parsedData.message) +
           '</div>';
       return result;
     }
