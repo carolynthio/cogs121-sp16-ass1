@@ -99,7 +99,8 @@ input:focus {
   border-radius: 3px;
   list-style-type: none;
   padding: 0;
-  font-size: 14px
+  font-size: 14px;
+  margin-left: 0!important;
 }
 #messages>hr:first-child {
   border: 0;
