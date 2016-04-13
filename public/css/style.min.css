@@ -29,6 +29,9 @@ header .logout-button {
 section {
   margin-top: 65px;
   padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 40px;
+  padding-right: 40px;
   background-color: white;
   margin-left: 15%;
   margin-right: 15%;
