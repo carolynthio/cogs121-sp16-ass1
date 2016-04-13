@@ -39,8 +39,12 @@
 
 }
 
+h3, h4 {
+  text-align: center;
+}
+
 .hours {
-  margin: 0;
+  margin: 0 !important;
 }
 
 /**************************
